@@ -37,7 +37,29 @@ app.post("/task/add", function(req, res) {
       console.log(err);
       throw err;
     }
-    console.log("Task added");
+    console.log(`Task added: ${task}`);
+    res.redirect("/");
+  });
+});
+
+app.post("/task/delete", function(req, res) {
+  const tasksToDelete = req.body.tasks;
+  client.lrange("tasks", 0, -1, function(err, tasks) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasksToDelete.indexOf(tasks[i]) > -1) {
+        client.lrem("tasks", 0, tasks[i], function(err, reply) {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+          console.log(`Task deleted: ${tasks[i]}`);
+        });
+      }
+    }
     res.redirect("/");
   });
 });
