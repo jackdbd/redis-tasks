@@ -6,6 +6,12 @@ const redis = require("redis");
 
 const app = express();
 
+// redis-server must be running on this machine.
+const client = redis.createClient();
+client.on("connect", function() {
+  console.log("Redis server connected");
+});
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -15,7 +21,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function(req, res) {
-  res.send("Hi!");
+  const title = "Task List";
+  client.lrange("tasks", 0, -1, function(err, reply) {
+    res.render("index", {
+      title,
+      tasks: reply
+    });
+  });
 });
 
 const PORT = 3000;
