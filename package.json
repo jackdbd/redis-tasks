@@ -1,0 +1,22 @@
+{
+  "name": "redis-tasks",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "description": "Task lists with Express and the Node.js Redis client",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "lint": "prettier --write '{,!(node_modules)/}**/*.{js,jsx}'"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.14.0"
+  }
+}
