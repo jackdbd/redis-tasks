@@ -12,48 +12,68 @@
         </style>
     </head>
     <body>
-        <form method="POST" action="/task/add">
-            <label>Add Tasks</label>
-            <input type="text" name="task" placeholder="Add Task">
-            <input type="submit" value="Submit">
-        </form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Redis Tasks</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
 
-        <%= title %>
+        <div class="container">
+            <form method="POST" action="/task/add">
+                <label>Add Tasks</label>
+                <input type="text" name="task" placeholder="Add Task">
+                <input type="submit" value="Submit">
+            </form>
 
-        <form method="POST" action="/task/delete">
-            <ul class="task-list">
-            <% tasks.forEach(function(task) { %>
-                <li>
-                    <label>
-                        <input type="checkbox" name="tasks" class="del" value="<%= task %>">
-                        <span><%= task %></span>
-                    </label>
-                </li>
-            <% }) %>
-            </ul>
-            <input type="submit" value="Remove">
-        </form>
+            <h3><%= title %></h3>
 
-        <h3>Next Business Call</h3>
-        <span>Name: </span><span><%= call.name %></span><br>
-        <span>Company: </span><span><%= call.company %></span><br>
-        <span>Phone: </span><span><%= call.phone %></span><br>
-        <span>Time: </span><span><%= call.time %></span><br>
+            <form method="POST" action="/task/delete">
+                <ul class="task-list">
+                <% tasks.forEach(function(task) { %>
+                    <li>
+                        <label>
+                            <input type="checkbox" name="tasks" class="del" value="<%= task %>">
+                            <span><%= task %></span>
+                        </label>
+                    </li>
+                <% }) %>
+                </ul>
+                <input type="submit" value="Remove">
+            </form>
 
-        <h3>Edit Next Call</h3>
-        <form method="POST" action="/call/add">
-            <label>Contact Name</label><br>
-            <input type="text" name="name" placeholder="Task Name">
-            <br><br>
-            <input type="text" name="company" placeholder="Company">
-            <br><br>
-            <label>Phone</label><br>
-            <input type="text" name="phone" placeholder="Phone">
-            <br><br>
-            <label>Day & Time</label><br>
-            <input type="text" name="time" placeholder="Time">
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">Business Calls</div>
+                <div class="card-body">
+                    <h3 class="card-title">Next Call</h3>
+                    <span>Name: </span><span><%= call.name %></span><br>
+                    <span>Company: </span><span><%= call.company %></span><br>
+                    <span>Phone: </span><span><%= call.phone %></span><br>
+                    <span>Time: </span><span><%= call.time %></span><br>
+                </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">Business Calls</div>
+                <div class="card-body">
+                    <h3 class="card-title">Edit Next Call</h3>
+                    <form method="POST" action="/call/add">
+                        <label>Contact Name</label><br>
+                        <input type="text" name="name" placeholder="Task Name">
+                        <br><br>
+                        <input type="text" name="company" placeholder="Company">
+                        <br><br>
+                        <label>Phone</label><br>
+                        <input type="text" name="phone" placeholder="Phone">
+                        <br><br>
+                        <label>Day & Time</label><br>
+                        <input type="text" name="time" placeholder="Time">
+                        <br><br>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </body>
 </html>
