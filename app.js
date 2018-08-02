@@ -30,6 +30,18 @@ app.get("/", function(req, res) {
   });
 });
 
+app.post("/task/add", function(req, res) {
+  const task = req.body.task;
+  client.rpush("tasks", task, function(err, reply) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    console.log("Task added");
+    res.redirect("/");
+  });
+});
+
 const PORT = 3000;
 app.listen(PORT);
 console.log(`Express server started on port ${PORT}`);
