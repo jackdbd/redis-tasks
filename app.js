@@ -22,10 +22,19 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function(req, res) {
   const title = "Task List";
-  client.lrange("tasks", 0, -1, function(err, reply) {
-    res.render("index", {
-      title,
-      tasks: reply
+  client.lrange("tasks", 0, -1, function(err, tasks) {
+    if (err) {
+      throw err;
+    }
+    client.hgetall("call", function(err, call) {
+      if (err) {
+        throw err;
+      }
+      res.render("index", {
+        title,
+        tasks,
+        call
+      });
     });
   });
 });
@@ -62,6 +71,36 @@ app.post("/task/delete", function(req, res) {
     }
     res.redirect("/");
   });
+});
+
+app.post("/call/add", function(req, res) {
+  const { name, company, phone, time } = req.body;
+  const newCall = {
+    name,
+    company,
+    phone,
+    time
+  };
+  client.hmset(
+    "call",
+    [
+      "name",
+      newCall.name,
+      "company",
+      newCall.company,
+      "phone",
+      newCall.phone,
+      "time",
+      newCall.time
+    ],
+    function(err, reply) {
+      if (err) {
+        throw err;
+      }
+      console.log("Add new call");
+      res.redirect("/");
+    }
+  );
 });
 
 const PORT = 3000;
