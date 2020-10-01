@@ -23,7 +23,7 @@ client.on('connect', function () {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger(process.env.LOGGER_FORMAT || 'short'));
+app.use(logger(process.env.LOGGER_FORMAT || 'common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

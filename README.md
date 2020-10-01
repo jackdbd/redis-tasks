@@ -62,6 +62,12 @@ Deploy the Node.js app on CapRover
 caprover deploy
 ```
 
+On CapRover, access to the Redis one-click app by creating a Redis client with the following syntax:
+
+```js
+const client = redis.createClient(6379, 'srv-captain--$$cap_appname' , {password: '$$cap_redis_password'})
+```
+
 ## Troubleshooting
 
 If you get `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use` when running `docker compose up`, it means that you are running a redis server on your machine and that redis server is already listening on port 6379.

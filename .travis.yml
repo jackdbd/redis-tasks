@@ -1,7 +1,7 @@
 os: linux
 dist: xenial
 services:
-  - redis-server
+  - redis
 language: node_js
 node_js:
   - 12
