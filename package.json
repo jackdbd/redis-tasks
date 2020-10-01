@@ -1,14 +1,22 @@
 {
   "name": "redis-tasks",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "app.js",
   "license": "MIT",
   "description": "Task lists with Express and the Node.js Redis client",
   "private": true,
+  "author": "Giacomo Debidda",
+  "homepage": "https://github.com/jackdbd/redis-tasks",
+  "repository": "git@github.com:jackdbd/redis-tasks.git",
+  "keywords": ["redis", "todo-list"],
+  "engines": {
+    "node": "12"
+  },
   "scripts": {
-    "dev": "nodemon app.js",
-    "format": "prettier --write '{,!(node_modules)/}**/*.{js,jsx}'",
-    "start": "node app.js"
+    "dev": "nodemon src/app.js",
+    "format": "prettier --write '{,!(node_modules)/}**/*.js'",
+    "start": "node src/app.js",
+    "test": "true"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

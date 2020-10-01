@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  redis:
+    command: redis-server
+    image: redis:6-buster
+    networks:
+      - redis-net
+    ports:
+      - "6379:6379"
+    restart: always
+  webapp:
+    build: .
+    command: npm run start
+    depends_on:
+      - redis
+    networks:
+      - redis-net
+    ports:
+      - "0.0.0.0:3001:3000"
+    # restart: "no"
+    restart: always
+networks:
+  redis-net:

@@ -1,0 +1,16 @@
+os: linux
+dist: xenial
+services:
+  - redis-server
+language: node_js
+node_js:
+  - 12
+  - "lts/*"
+install:
+  - npm ci
+script:
+  - npm run test
+notifications:
+  email:
+    on_success: change
+    on_failure: always
