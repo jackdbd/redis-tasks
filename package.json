@@ -6,19 +6,19 @@
   "description": "Task lists with Express and the Node.js Redis client",
   "private": true,
   "scripts": {
-    "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "prettier --write '{,!(node_modules)/}**/*.{js,jsx}'"
+    "format": "prettier --write '{,!(node_modules)/}**/*.{js,jsx}'",
+    "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "morgan": "^1.9.0",
-    "redis": "^2.8.0"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3",
-    "prettier": "^1.14.0"
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.2"
   }
 }

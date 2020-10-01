@@ -6,7 +6,6 @@ const redis = require("redis");
 
 const app = express();
 
-// redis-server must be running on this machine.
 const client = redis.createClient();
 client.on("connect", function() {
   console.log("Redis server connected");
@@ -23,13 +22,17 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", function(req, res) {
   const title = "Task List";
   client.lrange("tasks", 0, -1, function(err, tasks) {
+  console.log("=== err, tasks ===", err, tasks)
     if (err) {
       throw err;
     }
     client.hgetall("call", function(err, call) {
+      console.log("=== err, call ===", err, call)
       if (err) {
         throw err;
       }
+      console.log("=== title ===", title)
+      console.log("=== tasks ===", tasks)
       res.render("index", {
         title,
         tasks,
