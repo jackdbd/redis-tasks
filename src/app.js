@@ -6,8 +6,8 @@ const redis = require('redis');
 
 const app = express();
 
-if (process.env.REDIS_URI === undefined) {
-  throw new Error('REDIS_URI not set');
+if (process.env.REDIS_URL === undefined) {
+  throw new Error('REDIS_URL not set');
 }
 
 if (process.env.PORT === undefined) {
