@@ -6,15 +6,15 @@ const redis = require('redis');
 
 const app = express();
 
-if (process.env.REDIS_URL === undefined) {
-  throw new Error('REDIS_URL not set');
-}
+["PORT", "REDIS_HOST", "REDIS_PORT"].forEach((k) => {
+  if (process.env[k] === undefined) {
+    throw new Error(`${k} not set`);
+  }
+});
 
-if (process.env.PORT === undefined) {
-  throw new Error('PORT not set');
-}
-
-const client = redis.createClient(process.env.REDIS_URL);
+const client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
+  password: process.env.REDIS_PASSWORD
+});
 
 client.on('connect', function () {
   console.log('Redis server connected');
