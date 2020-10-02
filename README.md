@@ -40,10 +40,10 @@ npm run dev
 
 This project uses docker-compose to build 2 services: webapp and redis.
 
-Create and start all containers in background:
+Create and start all containers (rebuild Docker images every time):
 
 ```shell
-docker-compose up -d
+docker-compose up --build
 ```
 
 Stop all running containers:

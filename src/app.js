@@ -6,15 +6,21 @@ const redis = require('redis');
 
 const app = express();
 
-["PORT", "REDIS_HOST", "REDIS_PORT"].forEach((k) => {
+['PORT', 'REDIS_HOST', 'REDIS_PORT'].forEach((k) => {
   if (process.env[k] === undefined) {
     throw new Error(`${k} not set`);
   }
 });
 
-const client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, {
-  password: process.env.REDIS_PASSWORD
-});
+// If REDIS_PASSWORD is defined the app is on CapRover. Otherwise it's running
+// locally on my laptop.
+const client = redis.createClient(
+  process.env.REDIS_PORT,
+  process.env.REDIS_HOST,
+  {
+    password: process.env.REDIS_PASSWORD
+  }
+);
 
 client.on('connect', function () {
   console.log('Redis server connected');

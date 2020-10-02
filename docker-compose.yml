@@ -1,23 +1,40 @@
 version: "3.8"
 services:
-  redis:
-    command: redis-server
+  redis-service:
+    command: redis-server --port ${REDIS_PORT}
     image: redis:6-buster
     networks:
       - redis-net
+    # Expose a different port from 6379 to the Docker host.
+    # There are 2 reasons for this:
+    # 1. on my machine I might have a redis server (non-dockerized) running on
+    #    the default redis port (6379);
+    # 2. I need a fixed port number instead of a random one so I can inspect
+    #    what's inside this dockerized Redis by connecting to it with programs
+    #    such as Redis Desktop Manager.
     ports:
-      - "6379:6379"
+      - "6378:${REDIS_PORT}"
     restart: always
   webapp:
     build: .
     command: npm run start
     depends_on:
-      - redis
+      - redis-service
+    environment:
+      - LOGGER_FORMAT=${LOGGER_FORMAT}
+      - PORT=${PORT}
+      - REDIS_HOST=redis-service
+      - REDIS_PORT=${REDIS_PORT}
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:${PORT}/ || exit 1
+      interval: 1m30s
+      retries: 3
+      timeout: 3s
     networks:
       - redis-net
     ports:
-      - "0.0.0.0:3001:3000"
-    # restart: "no"
-    restart: always
+      - "3001:${PORT}"
+    restart: "no"
+    # restart: always
 networks:
   redis-net:
